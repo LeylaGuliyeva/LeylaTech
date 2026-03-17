@@ -53,7 +53,17 @@
 
     .nav-logo span { color: var(--blue); }
 
-    .nav-tag {
+    .nav-contact {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--blue);
+      text-decoration: none;
+      border-bottom: 1px solid var(--blue);
+      padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+    .nav-contact:hover { opacity: 0.7; }
       font-size: 11px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
@@ -393,7 +403,7 @@
 
   <nav>
     <div class="nav-logo">leyla<span>tech</span>.com</div>
-    <div class="nav-tag">AI · ML · Data Science</div>
+    <a href="contact.html" class="nav-contact">Contact</a>
   </nav>
 
   <section class="hero">
@@ -428,9 +438,9 @@
     <div class="contact-inner">
       <div class="contact-title" style="color: var(--text);">Contact</div>
       <div class="contact-links">
-        <a href="mailto:lg3451@columbia.edu" class="contact-link">
+        <a href="/cdn-cgi/l/email-protection#016d663235343041626e6d746c6368602f646574" class="contact-link">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          lg3451@columbia.edu
+          <span class="__cf_email__" data-cfemail="92fef5a1a6a7a3d2f1fdfee7fff0fbf3bcf7f6e7">[email&#160;protected]</span>
         </a>
         <a href="https://www.linkedin.com/in/leyla-guliyeva" target="_blank" class="contact-link">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
@@ -445,17 +455,8 @@
     <div class="footer-right">For my quant specific projects visit <a href="https://leylaquant.com">leylaquant.com</a></div>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     function updateClock() {
       const now = new Date();
       const h = String(now.getHours()).padStart(2,'0');
-      const m = String(now.getMinutes()).padStart(2,'0');
-      const s = String(now.getSeconds()).padStart(2,'0');
-      document.getElementById('clock').textContent = `${h}:${m}:${s}`;
-    }
-    updateClock();
-    setInterval(updateClock, 1000);
-  </script>
-
-</body>
-</html>
+      const m = String(now.getMinu
