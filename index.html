@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leyla G. — leylatech.com</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --white: #ffffff;
+      --bg: #f7f9fc;
+      --blue: #4dd9c8;
+      --blue2: #3bc4b3;
+      --blue-light: #e8faf8;
+      --text: #1a1a2e;
+      --muted: #9a9fb8;
+      --border: #eaecf4;
+      --display: 'Cormorant Garamond', serif;
+      --body: 'DM Sans', sans-serif;
+    }
+
+    html { height: 100%; }
+    body {
+      min-height: 100vh;
+      background: var(--white);
+      color: var(--text);
+      font-family: var(--body);
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 48px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--display);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo span { color: var(--blue); }
+
+    .nav-contact {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--blue);
+      text-decoration: none;
+      border-bottom: 1px solid var(--blue);
+      padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+    .nav-contact:hover { opacity: 0.7; }
+
+    /* HERO */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 80px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Diagonal blue accent */
+    .hero-accent {
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,102,255,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-accent2 {
+      position: absolute;
+      bottom: 0;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,102,255,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Dot grid */
+    .dot-grid {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(0,102,255,0.12) 1px, transparent 1px);
+      background-size: 32px 32px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 900px;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.2s;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background: var(--blue);
+    }
+
+    h1 {
+      font-family: var(--display);
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 600;
+      line-height: 1.0;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.4s;
+    }
+
+    h1 .blue { color: var(--blue); }
+
+    h1 .outline {
+      -webkit-text-stroke: 2px var(--text);
+      color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 480px;
+      margin-bottom: 48px;
+      margin-left: auto;
+      margin-right: auto;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.6s;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.8s;
+    }
+
+    .tag {
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+
+    .tag:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    .tag.active {
+      border-color: var(--blue);
+      color: var(--blue);
+      background: var(--blue-light);
+    }
+
+    /* STATUS STRIP */
+    .status-strip {
+      position: absolute;
+      bottom: 48px;
+      left: 48px;
+      right: 48px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 1s;
+    }
+
+    .status-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--blue);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+
+    .status-right {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--border);
+    }
+
+    /* COMING SOON SECTION */
+    .coming-section {
+      background: var(--text);
+      padding: 80px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .coming-left {
+      max-width: 500px;
+    }
+
+    .coming-label {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 16px;
+    }
+
+    .coming-title {
+      font-family: var(--display);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+
+    .coming-right {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-width: 280px;
+    }
+
+    .coming-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: border-color 0.2s;
+    }
+
+    .coming-item:hover { border-color: var(--blue); }
+
+    .coming-item-num {
+      font-family: var(--display);
+      font-size: 11px;
+      color: var(--blue);
+      letter-spacing: 0.1em;
+      min-width: 24px;
+    }
+
+    .coming-item-text {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.03em;
+    }
+
+    /* CONTACT */
+    .contact-section {
+      padding: 80px 48px;
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-inner { max-width: 500px; }
+
+    .contact-label {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+
+    .contact-title {
+      font-family: var(--display);
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      margin-bottom: 36px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 12px 0;
+      transition: all 0.2s;
+      letter-spacing: 0.02em;
+    }
+
+    .contact-link:hover {
+      color: var(--blue);
+    }
+
+    .contact-link svg {
+      width: 20px; height: 20px;
+      flex-shrink: 0;
+      fill: currentColor;
+    }
+
+    /* CONTACT */
+    footer {
+      padding: 32px 48px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 4px;
+    }
+
+    .footer-left {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .footer-right {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .footer-right a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    /* SURVEY */
+    .survey-section { background: var(--bg); padding: 80px 48px 60px; display: flex; justify-content: center; border-top: 1px solid var(--border); }
+    .survey-card { max-width: 680px; width: 100%; }
+    .survey-eyebrow { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px; }
+    .survey-title { font-family: var(--display); font-size: clamp(26px, 4vw, 38px); font-weight: 600; color: var(--text); line-height: 1.2; margin-bottom: 36px; letter-spacing: -0.01em; }
+    .question-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--blue); margin-bottom: 20px; }
+    .systems { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 36px; }
+    .system-card { border: 1px solid var(--border); padding: 24px; background: var(--white); }
+    .system-name { font-family: var(--display); font-size: 20px; font-weight: 600; color: var(--text); margin-bottom: 18px; }
+    .system-trait { display: flex; align-items: flex-start; gap: 10px; font-size: 12px; color: #4a5568; line-height: 1.6; margin-bottom: 10px; }
+    .dot { width: 5px; height: 5px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+    .dot.pos { background: #2d7a4f; } .dot.neg { background: #b04a3a; }
+    .survey-hr { height: 1px; background: var(--border); margin: 32px 0; }
+    .vote-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+    .vote-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .vote-btn { padding: 18px 20px; border: 1px solid var(--border); background: transparent; font-family: var(--body); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); cursor: pointer; transition: all 0.2s; text-align: left; }
+    .vote-btn:hover, .vote-btn.selected { background: var(--text); color: var(--white); border-color: var(--text); }
+    .vote-btn .btn-label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+    .vote-btn .btn-sub { font-size: 9px; opacity: 0.6; letter-spacing: 0.1em; }
+    .submit-btn { width: 100%; padding: 16px; background: var(--text); color: var(--white); border: none; font-family: var(--body); font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+    .submit-btn:hover { background: var(--blue); color: var(--text); } .submit-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .results { display: none; margin-top: 28px; } .results.show { display: block; }
+    .thank-you { font-size: 12px; color: var(--muted); letter-spacing: 0.04em; margin-top: 24px; text-align: center; line-height: 1.8; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .hero { padding: 100px 24px 160px; }
+      .status-strip { left: 24px; right: 24px; }
+      .coming-section { flex-direction: column; padding: 60px 24px; }
+      footer { flex-direction: column; gap: 8px; padding: 24px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">leyla<span>tech</span>.com</div>
+    <a href="contact.html" class="nav-contact">Contact</a>
+  </nav>
+
+  <section class="hero">
+    <div class="dot-grid"></div>
+    <div class="hero-accent"></div>
+    <div class="hero-accent2"></div>
+
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Building at the frontier</div>
+      <h1>
+        Hello, I am<br>
+        <span class="blue">Leyla G.</span>
+      </h1>
+      <p class="hero-desc">
+        AI researcher & data scientist. Past projects dropping soon.
+      </p>
+
+    </div>
+
+
+  </section>
+
+
+
+
+
+
+  <section class="survey-section">
+    <div class="survey-card">
+      <div class="survey-eyebrow">Support my latest research</div>
+      <div class="survey-title">AI Fairness vs. Accuracy<br>in Banking</div>
+
+      <div class="question-label">The scenario</div>
+
+      <div class="systems">
+        <div class="system-card">
+          <div class="system-name">AI System A</div>
+          <div class="system-trait">
+            <div class="dot pos"></div>
+            Ensures equal approval rates across all demographic groups
+          </div>
+          <div class="system-trait">
+            <div class="dot neg"></div>
+            Lower predictive accuracy
+          </div>
+        </div>
+        <div class="system-card">
+          <div class="system-name">AI System B</div>
+          <div class="system-trait">
+            <div class="dot pos"></div>
+            Maximizes prediction accuracy
+          </div>
+          <div class="system-trait">
+            <div class="dot neg"></div>
+            May produce uneven approval rates across demographic groups
+          </div>
+        </div>
+      </div>
+
+      <div class="survey-hr"></div>
+
+      <div id="vote-area">
+        <div class="vote-label">Which system would you prefer? 🙂</div>
+        <div class="vote-buttons">
+          <button class="vote-btn" id="btn-a" onclick="selectVote('A')">
+            <span class="btn-label">System A</span>
+            <span class="btn-sub">Fairness-focused AI</span>
+          </button>
+          <button class="vote-btn" id="btn-b" onclick="selectVote('B')">
+            <span class="btn-label">System B</span>
+            <span class="btn-sub">Accuracy-focused AI</span>
+          </button>
+        </div>
+        <button class="submit-btn" id="submit-btn" onclick="submitVote()" disabled>
+          Submit Response
+        </button>
+      </div>
+
+      <div id="already-voted" style="display:none;">
+        <div class="thank-you">You have already submitted your response. Thank you for contributing to my research! 🙂</div>
+      </div>
+
+      <div class="results" id="results">
+        <div class="thank-you">
+          Your response has been recorded.<br>
+          Thank you for contributing to my research! 🙂
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+    <div class="footer-left">© 2026 LEYLA G. — LEYLATECH.COM</div>
+    <div class="footer-right">For my quant specific projects visit <a href="https://leylaquant.com">leylaquant.com</a></div>
+  </footer>
+
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw7Cy5fC8kHkEWqaILCPSH_GKinxwAzOqbe7R0NqpIOYY7sxooKkscz1wdGB7ZprrHv/exec";
+
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2,'0');
+      const m = String(now.getMinutes()).padStart(2,'0');
+      const s = String(now.getSeconds()).padStart(2,'0');
+      const el = document.getElementById('clock');
+      if (el) el.textContent = `${h}:${m}:${s}`;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    let selected = null;
+    let userIP = null;
+
+    async function checkIP() {
+      try {
+        const res = await fetch('https://api.ipify.org?format=json');
+        const data = await res.json();
+        const ip = data.ip;
+        const voted = localStorage.getItem('voted_ip_tech');
+        if (voted === ip) {
+          document.getElementById('vote-area').style.display = 'none';
+          document.getElementById('already-voted').style.display = 'block';
+        }
+        return ip;
+      } catch(e) { return null; }
+    }
+
+    checkIP().then(ip => userIP = ip);
+
+    function selectVote(choice) {
+      selected = choice;
+      document.getElementById('btn-a').classList.toggle('selected', choice === 'A');
+      document.getElementById('btn-b').classList.toggle('selected', choice === 'B');
+      document.getElementById('submit-btn').disabled = false;
+    }
+
+    async function submitVote() {
+      if (!selected) return;
+      const btn = document.getElementById('submit-btn');
+      btn.textContent = 'Submitting...';
+      btn.disabled = true;
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ vote: selected, ip: userIP || 'unknown', source: 'leylatech' })
+        });
+        if (userIP) localStorage.setItem('voted_ip_tech', userIP);
+        document.getElementById('vote-area').style.display = 'none';
+        document.getElementById('results').classList.add('show');
+      } catch(e) {
+        btn.textContent = 'Submit Response';
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
