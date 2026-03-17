@@ -21,8 +21,9 @@
       --body: 'DM Sans', sans-serif;
     }
 
-    html, body { height: 100%; }
+    html { height: 100%; }
     body {
+      min-height: 100vh;
       background: var(--white);
       color: var(--text);
       font-family: var(--body);
@@ -30,8 +31,6 @@
       display: flex;
       flex-direction: column;
     }
-
-    .hero { flex: 1; }
 
     /* NAV */
     nav {
@@ -68,21 +67,16 @@
       transition: opacity 0.2s;
     }
     .nav-contact:hover { opacity: 0.7; }
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
 
     /* HERO */
     .hero {
-      min-height: 100vh;
+      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 120px 48px 80px;
+      padding: 80px 48px;
       position: relative;
       overflow: hidden;
     }
@@ -375,8 +369,10 @@
       padding: 32px 48px 48px;
       border-top: 1px solid var(--border);
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
+      text-align: center;
+      gap: 4px;
     }
 
     .footer-left {
@@ -395,6 +391,30 @@
       color: var(--blue);
       text-decoration: none;
     }
+
+    /* SURVEY */
+    .survey-section { background: var(--bg); padding: 80px 48px 60px; display: flex; justify-content: center; border-top: 1px solid var(--border); }
+    .survey-card { max-width: 680px; width: 100%; }
+    .survey-eyebrow { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blue); margin-bottom: 14px; }
+    .survey-title { font-family: var(--display); font-size: clamp(26px, 4vw, 38px); font-weight: 600; color: var(--text); line-height: 1.2; margin-bottom: 36px; letter-spacing: -0.01em; }
+    .question-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--blue); margin-bottom: 20px; }
+    .systems { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 36px; }
+    .system-card { border: 1px solid var(--border); padding: 24px; background: var(--white); }
+    .system-name { font-family: var(--display); font-size: 20px; font-weight: 600; color: var(--text); margin-bottom: 18px; }
+    .system-trait { display: flex; align-items: flex-start; gap: 10px; font-size: 12px; color: #4a5568; line-height: 1.6; margin-bottom: 10px; }
+    .dot { width: 5px; height: 5px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+    .dot.pos { background: #2d7a4f; } .dot.neg { background: #b04a3a; }
+    .survey-hr { height: 1px; background: var(--border); margin: 32px 0; }
+    .vote-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+    .vote-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .vote-btn { padding: 18px 20px; border: 1px solid var(--border); background: transparent; font-family: var(--body); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); cursor: pointer; transition: all 0.2s; text-align: left; }
+    .vote-btn:hover, .vote-btn.selected { background: var(--text); color: var(--white); border-color: var(--text); }
+    .vote-btn .btn-label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+    .vote-btn .btn-sub { font-size: 9px; opacity: 0.6; letter-spacing: 0.1em; }
+    .submit-btn { width: 100%; padding: 16px; background: var(--text); color: var(--white); border: none; font-family: var(--body); font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: background 0.2s; }
+    .submit-btn:hover { background: var(--blue); color: var(--text); } .submit-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .results { display: none; margin-top: 28px; } .results.show { display: block; }
+    .thank-you { font-size: 12px; color: var(--muted); letter-spacing: 0.04em; margin-top: 24px; text-align: center; line-height: 1.8; }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
@@ -442,12 +462,136 @@
 
 
 
+  <section class="survey-section">
+    <div class="survey-card">
+      <div class="survey-eyebrow">Support my latest research</div>
+      <div class="survey-title">AI Fairness vs. Accuracy<br>in Banking</div>
+
+      <div class="question-label">The scenario</div>
+
+      <div class="systems">
+        <div class="system-card">
+          <div class="system-name">AI System A</div>
+          <div class="system-trait">
+            <div class="dot pos"></div>
+            Ensures equal approval rates across all demographic groups
+          </div>
+          <div class="system-trait">
+            <div class="dot neg"></div>
+            Lower predictive accuracy
+          </div>
+        </div>
+        <div class="system-card">
+          <div class="system-name">AI System B</div>
+          <div class="system-trait">
+            <div class="dot pos"></div>
+            Maximizes prediction accuracy
+          </div>
+          <div class="system-trait">
+            <div class="dot neg"></div>
+            May produce uneven approval rates across demographic groups
+          </div>
+        </div>
+      </div>
+
+      <div class="survey-hr"></div>
+
+      <div id="vote-area">
+        <div class="vote-label">Which system would you prefer? 🙂</div>
+        <div class="vote-buttons">
+          <button class="vote-btn" id="btn-a" onclick="selectVote('A')">
+            <span class="btn-label">System A</span>
+            <span class="btn-sub">Fairness-focused AI</span>
+          </button>
+          <button class="vote-btn" id="btn-b" onclick="selectVote('B')">
+            <span class="btn-label">System B</span>
+            <span class="btn-sub">Accuracy-focused AI</span>
+          </button>
+        </div>
+        <button class="submit-btn" id="submit-btn" onclick="submitVote()" disabled>
+          Submit Response
+        </button>
+      </div>
+
+      <div id="already-voted" style="display:none;">
+        <div class="thank-you">You have already submitted your response. Thank you for contributing to my research! 🙂</div>
+      </div>
+
+      <div class="results" id="results">
+        <div class="thank-you">
+          Your response has been recorded.<br>
+          Thank you for contributing to my research! 🙂
+        </div>
+      </div>
+    </div>
+  </section>
+
+
     <div class="footer-left">© 2026 LEYLA G. — LEYLATECH.COM</div>
     <div class="footer-right">For my quant specific projects visit <a href="https://leylaquant.com">leylaquant.com</a></div>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+
+  <script>
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw7Cy5fC8kHkEWqaILCPSH_GKinxwAzOqbe7R0NqpIOYY7sxooKkscz1wdGB7ZprrHv/exec";
+
     function updateClock() {
       const now = new Date();
       const h = String(now.getHours()).padStart(2,'0');
-      const m = String(now.getMinu
+      const m = String(now.getMinutes()).padStart(2,'0');
+      const s = String(now.getSeconds()).padStart(2,'0');
+      const el = document.getElementById('clock');
+      if (el) el.textContent = `${h}:${m}:${s}`;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    let selected = null;
+    let userIP = null;
+
+    async function checkIP() {
+      try {
+        const res = await fetch('https://api.ipify.org?format=json');
+        const data = await res.json();
+        const ip = data.ip;
+        const voted = localStorage.getItem('voted_ip_tech');
+        if (voted === ip) {
+          document.getElementById('vote-area').style.display = 'none';
+          document.getElementById('already-voted').style.display = 'block';
+        }
+        return ip;
+      } catch(e) { return null; }
+    }
+
+    checkIP().then(ip => userIP = ip);
+
+    function selectVote(choice) {
+      selected = choice;
+      document.getElementById('btn-a').classList.toggle('selected', choice === 'A');
+      document.getElementById('btn-b').classList.toggle('selected', choice === 'B');
+      document.getElementById('submit-btn').disabled = false;
+    }
+
+    async function submitVote() {
+      if (!selected) return;
+      const btn = document.getElementById('submit-btn');
+      btn.textContent = 'Submitting...';
+      btn.disabled = true;
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ vote: selected, ip: userIP || 'unknown', source: 'leylatech' })
+        });
+        if (userIP) localStorage.setItem('voted_ip_tech', userIP);
+        document.getElementById('vote-area').style.display = 'none';
+        document.getElementById('results').classList.add('show');
+      } catch(e) {
+        btn.textContent = 'Submit Response';
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
