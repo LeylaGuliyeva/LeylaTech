@@ -4,28 +4,32 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact — leylatech.com</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --white: #ffffff;
-      --bg: #f7f9fc;
-      --blue: #4dd9c8;
-      --blue2: #3bc4b3;
-      --blue-light: #e8faf8;
-      --text: #1a1a2e;
-      --muted: #9a9fb8;
-      --border: #eaecf4;
-      --display: 'Cormorant Garamond', serif;
-      --body: 'DM Sans', sans-serif;
+      --bg: #f9fafb;
+      --teal: #5bbfb5;
+      --teal-light: #edf8f7;
+      --text: #1c2333;
+      --muted: #8e97a8;
+      --border: #eef0f4;
+      --display: 'Lora', serif;
+      --body: 'Jost', sans-serif;
+      --radius: 16px;
     }
 
-    html, body { height: 100%; }
+    html { height: 100%; }
     body {
+      min-height: 100vh;
       background: var(--white);
       color: var(--text);
       font-family: var(--body);
+      font-weight: 300;
+      display: flex;
+      flex-direction: column;
     }
 
     nav {
@@ -35,39 +39,41 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 48px;
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(12px);
+      padding: 22px 52px;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
     }
 
     .nav-logo {
-      font-family: var(--display);
+      font-family: var(--body);
       font-size: 15px;
-      font-weight: 700;
+      font-weight: 500;
       color: var(--text);
-      letter-spacing: -0.02em;
+      letter-spacing: 0.02em;
       text-decoration: none;
     }
-
-    .nav-logo span { color: var(--blue); }
+    .nav-logo span { color: var(--teal); }
 
     .nav-contact {
-      font-size: 11px;
-      letter-spacing: 0.2em;
+      font-size: 12px;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--blue);
+      color: var(--teal);
       text-decoration: none;
-      border-bottom: 1px solid var(--blue);
-      padding-bottom: 2px;
+      font-weight: 400;
+      transition: opacity 0.2s;
     }
+    .nav-contact:hover { opacity: 0.6; }
 
     .page {
-      min-height: 100vh;
+      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 120px 48px 80px;
+      align-items: center;
+      text-align: center;
+      padding: 140px 48px 80px;
     }
 
     .back-link {
@@ -79,27 +85,22 @@
       text-transform: uppercase;
       color: var(--muted);
       text-decoration: none;
-      margin-bottom: 60px;
+      margin-bottom: 52px;
       transition: color 0.2s;
       opacity: 0;
       animation: fadeUp 0.5s ease forwards 0.1s;
+      font-weight: 400;
     }
-
-    .back-link:hover { color: var(--blue); }
-
-    .back-link::before {
-      content: '←';
-      font-size: 14px;
-    }
+    .back-link:hover { color: var(--teal); }
+    .back-link::before { content: '←'; font-size: 14px; }
 
     .contact-title {
       font-family: var(--display);
-      font-size: clamp(52px, 8vw, 96px);
-      font-weight: 600;
-      line-height: 1.0;
-      letter-spacing: -0.01em;
+      font-size: clamp(42px, 7vw, 80px);
+      font-weight: 500;
       color: var(--text);
-      margin-bottom: 60px;
+      line-height: 1.1;
+      margin-bottom: 48px;
       opacity: 0;
       animation: fadeUp 0.5s ease forwards 0.2s;
     }
@@ -107,7 +108,8 @@
     .contact-links {
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      align-items: center;
+      gap: 20px;
       opacity: 0;
       animation: fadeUp 0.5s ease forwards 0.4s;
     }
@@ -115,66 +117,61 @@
     .contact-link {
       display: flex;
       align-items: center;
-      gap: 18px;
-      font-size: 18px;
+      gap: 14px;
+      font-size: 15px;
+      font-weight: 300;
       color: var(--muted);
       text-decoration: none;
       transition: color 0.2s;
-      width: fit-content;
+      padding: 16px 28px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--bg);
+      min-width: 320px;
+      justify-content: center;
     }
 
-    .contact-link:hover { color: var(--text); }
+    .contact-link:hover {
+      color: var(--teal);
+      border-color: var(--teal);
+      background: var(--teal-light);
+    }
 
     .contact-link svg {
-      width: 22px; height: 22px;
+      width: 18px; height: 18px;
       fill: currentColor;
       flex-shrink: 0;
     }
 
-    .contact-link-text {
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 2px;
-      transition: border-color 0.2s;
-    }
-
-    .contact-link:hover .contact-link-text {
-      border-color: var(--blue);
-    }
-
     footer {
-      padding: 24px 48px;
-      border-top: 1px solid var(--border);
+      padding: 28px 48px 40px;
+      background: var(--bg);
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
+      text-align: center;
+      gap: 4px;
     }
 
-    .footer-left {
+    .footer-left, .footer-right {
       font-size: 11px;
       letter-spacing: 0.1em;
       color: var(--muted);
+      font-weight: 300;
     }
 
-    .footer-right {
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-    }
-
-    .footer-right a {
-      color: var(--blue);
-      text-decoration: none;
-    }
+    .footer-right a { color: var(--teal); text-decoration: none; }
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(16px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 560px) {
       nav { padding: 20px 24px; }
-      .page { padding: 100px 24px 60px; }
-      footer { flex-direction: column; gap: 8px; padding: 24px; text-align: center; }
+      .page { padding: 120px 24px 60px; }
+      .contact-link { min-width: unset; width: 100%; }
+      footer { padding: 24px 24px 36px; }
     }
   </style>
 </head>
@@ -190,12 +187,12 @@
     <div class="contact-title">Contact</div>
     <div class="contact-links">
       <a href="mailto:lg3451@columbia.edu" class="contact-link">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        <span class="contact-link-text">lg3451@columbia.edu</span>
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        lg3451@columbia.edu
       </a>
       <a href="https://www.linkedin.com/in/leyla-guliyeva" target="_blank" class="contact-link">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        <span class="contact-link-text">linkedin.com/in/leyla-guliyeva</span>
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        linkedin.com/in/leyla-guliyeva
       </a>
     </div>
   </section>
